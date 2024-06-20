@@ -137,6 +137,7 @@ def dar_dislike(request):
     return JsonResponse(response_data)
 
 
+# Obtener estadísticas de likes y dislikes (staff)
 @staff_member_required
 def posteo_estadisticas(request):
     # Obtener los posteos con sus estadísticas de likes y dislikes y calcular la puntuación
@@ -152,3 +153,14 @@ def posteo_estadisticas(request):
         'posteos': posteos
     }
     return render(request, 'posteo_estadisticas.html', context)
+
+
+# Obtener los Likes y Dislikes (usuario autenticado)
+@login_required
+def user_interactions(request):
+    favoritos = Favoritos.objects.filter(user=request.user).select_related('posteo')
+
+    context = {
+        'favoritos': favoritos
+    }
+    return render(request, 'user_interactions.html', context)

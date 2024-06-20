@@ -1,0 +1,31 @@
+{% extends 'home.html' %} {% load static %} {% block content %}
+
+<br />
+<br />
+
+<div class="container mt-5">
+  <h1>Mis interacciones</h1>
+  <br />
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Titulo del Posteo</th>
+        <th>Interaccion</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for favorito in favoritos %}
+      <tr>
+        <td>{{ favorito.posteo.title }}</td>
+        <td>{{ favorito.get_interaction_display }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<br />
+<br />
+<br />
+<br />
+
+{% endblock %}

@@ -19,4 +19,5 @@ urlpatterns = [
     path('dar_like/', dar_like, name='dar_like'),
     path('dar_dislike/', dar_dislike, name='dar_dislike'),
     path('posteoEstadisticas/', posteo_estadisticas, name='posteo_estadisticas'),
+    path('misInteracciones/', user_interactions, name='user_interactions'),
 ]
