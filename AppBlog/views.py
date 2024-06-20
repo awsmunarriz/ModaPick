@@ -67,7 +67,6 @@ def chequeo(request):
 
 
 # NUEVO POSTEO
-
 class PosteoCreacion(LoginRequiredMixin, CreateView):
     model = Post
     form_class = FormularioNuevoPosteo
@@ -78,7 +77,7 @@ class PosteoCreacion(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super(PosteoCreacion, self).form_valid(form)
 
-
+# OBTENER POSTEOS
 def obtener_posteos(request):
     posteos = Post.objects.all()
     user_authenticated = request.user.is_authenticated
@@ -97,8 +96,8 @@ def obtener_posteos(request):
     }
     return JsonResponse(data, safe=False)
 
-
-def agregar_a_favoritos(request):
+# DAR LIKE A POSTEO
+def dar_like(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -107,8 +106,29 @@ def agregar_a_favoritos(request):
                 return JsonResponse(response_data, status=400)  # 400 Bad Request
             posteo_id = data['posteo_id']
             posteo = Post.objects.get(id=posteo_id)
-            Favoritos.objects.get_or_create(user=request.user, posteo=posteo)
-            response_data = {"status": "success", "message": "OK"}
+            Favoritos.objects.filter(user=request.user, posteo=posteo).delete()  # Eliminar cualquier interacción previa
+            Favoritos.objects.create(user=request.user, posteo=posteo, interaction=Favoritos.LIKE)
+            response_data = {"status": "success", "message": "Like added"}
+        except json.JSONDecodeError:
+            response_data = {"status": "error", "message": "Invalid JSON"}
+    else:
+        response_data = {"status": "error", "message": "Invalid request method"}
+    return JsonResponse(response_data)
+
+
+# DAR DISLIKE A POSTEO
+def dar_dislike(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            if 'posteo_id' not in data:
+                response_data = {"status": "error", "message": "Missing 'posteo_id' parameter"}
+                return JsonResponse(response_data, status=400)  # 400 Bad Request
+            posteo_id = data['posteo_id']
+            posteo = Post.objects.get(id=posteo_id)
+            Favoritos.objects.filter(user=request.user, posteo=posteo).delete()  # Eliminar cualquier interacción previa
+            Favoritos.objects.create(user=request.user, posteo=posteo, interaction=Favoritos.DISLIKE)
+            response_data = {"status": "success", "message": "Dislike added"}
         except json.JSONDecodeError:
             response_data = {"status": "error", "message": "Invalid JSON"}
     else:

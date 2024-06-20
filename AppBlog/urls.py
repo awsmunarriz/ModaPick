@@ -16,5 +16,6 @@ urlpatterns = [
     path('check/', views.chequeo, name='chequeo'),
     path('posteoCreacion/', PosteoCreacion.as_view(), name='nuevo'),
     path('posteos/', views.obtener_posteos, name='obtener_posteos'),
-    path('agregar_a_favoritos/', agregar_a_favoritos, name='agregar_a_favoritos'),
+    path('dar_like/', dar_like, name='dar_like'),
+    path('dar_dislike/', dar_dislike, name='dar_dislike'),
 ]

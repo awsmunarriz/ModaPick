@@ -78,53 +78,28 @@ class PosteoController {
           <h3>${posteo.description}</h3>
         </div>
         <div class="modal-footer">
-          <button type="button" id="fav-${posteo.id}" class="css-button css-button-3d--yellow">
-            <i class="fa-solid fa-star"></i> Agregar a favoritas
+          <button type="button" id="like-${posteo.id}" class="css-button css-button-3d--green">
+            <i class="fa-regular fa-thumbs-up"></i> Like
+          </button>
+          <button type="button" id="dislike-${posteo.id}" class="css-button css-button-3d--red">
+            <i class="fa-regular fa-thumbs-down"></i> Dislike
           </button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       `;
-    this.darEventoClickAFav(posteo);
+    this.darEventoClickALike(posteo);
+    this.darEventoClickADislike(posteo);
   }
 
-  // darEventoClickAFav(posteo) {
-  //   const btnAgregarFav = document.getElementById(`fav-${posteo.id}`);
-  //   if (btnAgregarFav) {
-  //     btnAgregarFav.addEventListener("click", () => {
-  //       if (!this.userAuthenticated) {
-  //         alert("Debes iniciar sesión para agregar a favoritos.");
-  //         return;
-  //       }
-  //       fetch("/agregar_a_favoritos/", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           "X-CSRFToken": getCookie("csrftoken"), // Obtener CSRF token
-  //         },
-  //         body: JSON.stringify({ posteo_id: posteo.id }),
-  //       })
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           if (data.status === "ok") {
-  //             alert("Posteo agregado a favoritos");
-  //           } else {
-  //             alert("Error al agregar a favoritos");
-  //           }
-  //         })
-  //         .catch((error) => console.error("Error:", error));
-  //     });
-  //   }
-  // }
-
-  darEventoClickAFav(posteo) {
-    const btnAgregarFav = document.getElementById(`fav-${posteo.id}`);
+  darEventoClickALike(posteo) {
+    const btnAgregarFav = document.getElementById(`like-${posteo.id}`);
     if (btnAgregarFav) {
       btnAgregarFav.addEventListener("click", () => {
         if (!this.userAuthenticated) {
           alert("Debes iniciar sesión para agregar a favoritos.");
           return;
         }
-        fetch("/agregar_a_favoritos/", {
+        fetch("/dar_like/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -153,6 +128,42 @@ class PosteoController {
     }
   }
 
+  darEventoClickADislike(posteo) {
+    const btnAgregarFav = document.getElementById(`dislike-${posteo.id}`);
+    if (btnAgregarFav) {
+      btnAgregarFav.addEventListener("click", () => {
+        if (!this.userAuthenticated) {
+          alert("Debes iniciar sesión para agregar a favoritos.");
+          return;
+        }
+        fetch("/dar_dislike/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"), // Obtener CSRF token
+          },
+          body: JSON.stringify({ posteo_id: posteo.id }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error(
+              "There was a problem with the fetch operation:",
+              error
+            );
+          });
+      });
+    }
+  }
 
   actualizarBotones() {
     this.btnAnterior.disabled = this.paginaActual === 0;

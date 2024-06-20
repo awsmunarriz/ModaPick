@@ -242,12 +242,15 @@ h6 {
 }
 
 .css-button-3d--green {
-	position: inherit !important;
 	background-color: rgb(29, 234, 142);
 	border: 1px solid rgb(8, 194, 138);
 	padding: 0.3rem 1rem;
 	box-shadow: 2px 2px rgb(156, 255, 210);
 	border-radius: 0.5rem;
+}
+
+.css-button-3d--green:hover {
+	background-color: rgb(75, 255, 174);
 }
 
 .css-button-3d--yellow {
@@ -258,13 +261,22 @@ h6 {
 	border-radius: 0.5rem;
 }
 
-.css-button-3d--green:hover {
-	background-color: rgb(75, 255, 174);
-}
-
 .css-button-3d--yellow:hover {
 	background-color: rgb(255, 227, 102);
 }
+
+.css-button-3d--red {
+	background-color: rgb(255, 99, 71);
+	border: 1px solid rgb(255, 69, 0);
+	padding: 0.3rem 1rem;
+	box-shadow: 2px 2px rgb(255, 160, 122);
+	border-radius: 0.5rem;
+}
+
+.css-button-3d--red:hover {
+	background-color: rgb(255, 127, 80);
+}
+
 
 /* Paginación prev - next */
 
