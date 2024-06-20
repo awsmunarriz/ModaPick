@@ -19,4 +19,6 @@ urlpatterns = [
     path('dar_dislike/', dar_dislike, name='dar_dislike'),
     path('posteoEstadisticas/', posteo_estadisticas, name='posteo_estadisticas'),
     path('misInteracciones/', user_interactions, name='user_interactions'),
+    path('eliminarPosteo/<int:posteo_id>/', eliminar_posteo, name='eliminar_posteo'),
+    path('listaPosteos/', lista_posteos_delete, name='lista_posteos'),
 ]

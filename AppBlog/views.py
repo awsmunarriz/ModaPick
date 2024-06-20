@@ -160,3 +160,19 @@ def user_interactions(request):
         'favoritos': favoritos
     }
     return render(request, 'user_interactions.html', context)
+
+
+@staff_member_required
+def eliminar_posteo(request, posteo_id):
+    posteo = get_object_or_404(Post, id=posteo_id)
+    posteo.delete()
+    return redirect('home')
+
+
+@staff_member_required
+def lista_posteos_delete(request):
+    posteos = Post.objects.all()
+    context = {
+        'posteos': posteos
+    }
+    return render(request, 'eliminar_posteo.html', context)

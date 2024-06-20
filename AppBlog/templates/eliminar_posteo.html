@@ -1,0 +1,36 @@
+{% extends 'home.html' %} {% load static %} {% block content %}
+
+<br />
+<br />
+
+<div class="container mt-5">
+  <h1>Eliminar Posteos</h1>
+  <br />
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Titulo</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for posteo in posteos %}
+      <tr>
+        <td>{{ posteo.title }}</td>
+        <td>
+          <form method="post" action="{% url 'eliminar_posteo' posteo.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<br />
+<br />
+<br />
+<br />
+
+{% endblock %}
