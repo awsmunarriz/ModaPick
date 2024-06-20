@@ -18,27 +18,35 @@
         </li>
 
         {% if request.user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'user_interactions' %}">MiActividad</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'posteo_estadisticas' %}">Ranking</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'editar_perfil' %}">Perfil</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'nuevo_posteo' %}">NuevoPosteo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'lista_posteos' %}">EliminarPosteo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'editar_perfil' %}">Otros</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'editar_perfil' %}">QuienSoy</a>
-          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user_interactions' %}"
+            >MiActividad</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'posteo_estadisticas' %}">Ranking</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'editar_perfil' %}">Perfil</a>
+        </li>
+
+        {% if request.user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'nuevo_posteo' %}">NuevoPosteo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'lista_posteos' %}"
+            >EliminarPosteo</a
+          >
+        </li>
+        {% endif %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'editar_perfil' %}">Otros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'editar_perfil' %}">QuienSoy</a>
+        </li>
         {% endif %}
 
         <div class="container"></div>
@@ -47,11 +55,14 @@
         <div class="container"></div>
         <div class="container"></div>
         <div class="container"></div>
+
         {% if request.user.is_authenticated %}
         <div class="container">
           <li class="nav-item">
             <a class="nav-link" href="{% url 'editar_perfil' %}"
-              ><span class="text-primary">{{ request.user.first_name }}</span></a
+              ><span class="text-primary"
+                >{{ request.user.first_name }}</span
+              ></a
             >
           </li>
         </div>
