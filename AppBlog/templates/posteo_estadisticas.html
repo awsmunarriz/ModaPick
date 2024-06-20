@@ -1,0 +1,34 @@
+{% extends 'home.html' %} {% load static %} {% block content %}
+
+<br />
+<br />
+
+<div class="container mt-5">
+  <h1>Estadísticas de Posteos</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Likes</th>
+        <th>Dislikes</th>
+        <th>Puntuación</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for posteo in posteos %}
+      <tr>
+        <td>{{ posteo.title }}</td>
+        <td>{{ posteo.likes }}</td>
+        <td>{{ posteo.dislikes }}</td>
+        <td>{{ posteo.puntuacion }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<br />
+<br />
+<br />
+<br />
+
+{% endblock %}

@@ -173,7 +173,37 @@ hr {
 
 }
 
+th {
+	color: rgba(255, 255, 255, .55);
+}
+
+tr {
+	color: rgba(255, 255, 255, .55);
+}
+
+label {
+	color: rgba(255, 255, 255, .55);
+}
+
+p {
+	color: rgba(255, 255, 255, .55);
+}
+
+h1 {
+	color: rgba(255, 255, 255, .55);
+	font-size: 2rem;
+	font-weight: 500;
+	line-height: 1.2;
+	margin-bottom: 0.5rem;
+	margin-top: 0;
+}
+
+h2 {
+	color: rgba(255, 255, 255, .55);
+}
+
 h3 {
+	color: rgba(255, 255, 255, .55);
 	font-size: 1.75rem;
 	font-weight: 500;
 	line-height: 1.2;
@@ -182,6 +212,7 @@ h3 {
 }
 
 h4 {
+	color: rgba(255, 255, 255, .55);
 	font-size: 1.5rem;
 	font-weight: 500;
 	line-height: 1.2;
@@ -189,7 +220,12 @@ h4 {
 	margin-top: 0;
 }
 
+h5 {
+	color: rgba(255, 255, 255, .55);
+}
+
 h6 {
+	color: rgba(255, 255, 255, .55);
 	font-weight: 500;
 	line-height: 1.2;
 	margin-bottom: 0.5rem;

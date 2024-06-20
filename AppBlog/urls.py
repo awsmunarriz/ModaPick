@@ -18,4 +18,5 @@ urlpatterns = [
     path('posteos/', views.obtener_posteos, name='obtener_posteos'),
     path('dar_like/', dar_like, name='dar_like'),
     path('dar_dislike/', dar_dislike, name='dar_dislike'),
+    path('posteoEstadisticas/', posteo_estadisticas, name='posteo_estadisticas'),
 ]

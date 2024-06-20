@@ -70,7 +70,7 @@ class PosteoController {
   mostrarInfoEnDOM(posteo) {
     this.contenedor_info.innerHTML = `
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">${posteo.title}</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel" style="color:SlateGrey;">${posteo.title}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -116,7 +116,7 @@ class PosteoController {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
+            alert("Like agregado!");
           })
           .catch((error) => {
             console.error(
@@ -153,7 +153,7 @@ class PosteoController {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
+            alert("Disike agregado!");
           })
           .catch((error) => {
             console.error(

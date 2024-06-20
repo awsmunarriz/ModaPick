@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render, get_object_or_404
+from django.db.models import Count, Q, F, ExpressionWrapper, IntegerField
 from django.urls import reverse_lazy
 from .forms import FormularioCambioPassword, FormularioEdicion, FormularioRegistroUsuario
 from .forms import FormularioNuevoPosteo
@@ -134,3 +135,20 @@ def dar_dislike(request):
     else:
         response_data = {"status": "error", "message": "Invalid request method"}
     return JsonResponse(response_data)
+
+
+@staff_member_required
+def posteo_estadisticas(request):
+    # Obtener los posteos con sus estadísticas de likes y dislikes y calcular la puntuación
+    posteos = Post.objects.annotate(
+        likes=Count('favoritos', filter=Q(favoritos__interaction=Favoritos.LIKE)),
+        dislikes=Count('favoritos', filter=Q(favoritos__interaction=Favoritos.DISLIKE)),
+        puntuacion=ExpressionWrapper(
+            Count('favoritos', filter=Q(favoritos__interaction=Favoritos.LIKE)) - Count('favoritos', filter=Q(favoritos__interaction=Favoritos.DISLIKE)),
+            output_field=IntegerField()
+        )
+    )
+    context = {
+        'posteos': posteos
+    }
+    return render(request, 'posteo_estadisticas.html', context)
