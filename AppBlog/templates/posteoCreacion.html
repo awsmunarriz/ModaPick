@@ -1,0 +1,23 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<br>
+<br>
+
+<div class="container">
+    <h1 class="text-center">Agrega un nuevo posteo</h1>
+<div class="form-group">
+<form style=" width: 50vw; margin-left : 15vw;" method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ form.as_p }}
+    <div class="container text-center">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+</form>
+</div>
+</div>
+
+<br>
+<br>
+
+{% endblock %}

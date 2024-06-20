@@ -1,0 +1,25 @@
+@media screen and (max-width: 800px) {
+    .left, .main, .right {
+      width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+}
+
+
+body {
+    background-color: white;
+    font-family: 'Poppins', 'Nunito',  sans-serif;
+    padding-top: 25px;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    text-decoration: none;
+}
+
+p {
+    color: #363636;
+}
+
