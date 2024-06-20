@@ -1,11 +1,11 @@
 from django.views.generic import UpdateView
 from django.views.generic.edit import CreateView, UpdateView, FormView 
 from django.contrib.auth.views import LoginView, PasswordChangeView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth import login
+from django.contrib.auth.views import LogoutView
 from django.shortcuts import redirect, render, get_object_or_404
-from django.db.models import Count, Q, F, ExpressionWrapper, IntegerField
+from django.db.models import Count, Q, ExpressionWrapper, IntegerField
 from django.urls import reverse_lazy
 from .forms import FormularioCambioPassword, FormularioEdicion, FormularioRegistroUsuario
 from .forms import FormularioNuevoPosteo
@@ -18,9 +18,12 @@ from .models import Post, Favoritos
 import json
 
 
+# Home page
 def home(request):
     return render(request, 'home.html')
 
+
+# Acceso Login de usuarios
 class LoginPagina(LoginView):
     template_name = 'login.html'
     fields = '__all__'
@@ -30,6 +33,8 @@ class LoginPagina(LoginView):
     def get_success_url(self):
         return reverse_lazy('home')
 
+
+# Registro de usuarios
 class RegistroPagina(FormView):
     template_name = 'registro.html'
     form_class = FormularioRegistroUsuario
@@ -47,9 +52,11 @@ class RegistroPagina(FormView):
             return redirect('home')
         return super(RegistroPagina, self).get(*args, **kwargs)
 
-class UsuarioEdicion(UpdateView):
+
+# Editar datos del usuario (usuario autenticado)
+class UsuarioEdicion(LoginRequiredMixin, UpdateView):
     form_class = FormularioEdicion
-    template_name= 'edicionPerfil.html'
+    template_name = 'edicionPerfil.html'
     success_url = reverse_lazy('home')
 
     def get_object(self):
@@ -60,12 +67,15 @@ class CambioPassword(PasswordChangeView):
     template_name = 'passwordCambio.html'
     success_url = reverse_lazy('password_exitoso')
 
+
+# Confirmacion de cambio de contraseña (usuario autenticado)
+@login_required
 def password_exitoso(request):
     return render(request, 'passwordExitoso.html', {})
 
 
-# NUEVO POSTEO
-class PosteoCreacion(LoginRequiredMixin, CreateView):
+# NUEVO POSTEO (personal staff)
+class PosteoCreacion(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
     form_class = FormularioNuevoPosteo
     success_url = reverse_lazy('home')
@@ -75,7 +85,17 @@ class PosteoCreacion(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super(PosteoCreacion, self).form_valid(form)
 
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        if self.request.user.is_authenticated:
+            return redirect('home')
+        return super().handle_no_permission()
+
+
 # OBTENER POSTEOS
+@login_required
 def obtener_posteos(request):
     posteos = Post.objects.all()
     user_authenticated = request.user.is_authenticated
@@ -94,7 +114,9 @@ def obtener_posteos(request):
     }
     return JsonResponse(data, safe=False)
 
-# DAR LIKE A POSTEO
+
+# DAR LIKE A POSTEO (usuario autenticado)
+@login_required
 def dar_like(request):
     if request.method == 'POST':
         try:
@@ -114,7 +136,8 @@ def dar_like(request):
     return JsonResponse(response_data)
 
 
-# DAR DISLIKE A POSTEO
+# DAR DISLIKE A POSTEO (usuario autenticado)
+@login_required
 def dar_dislike(request):
     if request.method == 'POST':
         try:
@@ -162,6 +185,7 @@ def user_interactions(request):
     return render(request, 'user_interactions.html', context)
 
 
+# Eliminar posteo (personal staff)
 @staff_member_required
 def eliminar_posteo(request, posteo_id):
     posteo = get_object_or_404(Post, id=posteo_id)
@@ -169,6 +193,7 @@ def eliminar_posteo(request, posteo_id):
     return redirect('home')
 
 
+# Obtener lista de posteos para eliminar (personal staff)
 @staff_member_required
 def lista_posteos_delete(request):
     posteos = Post.objects.all()

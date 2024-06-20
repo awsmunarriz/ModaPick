@@ -3,6 +3,8 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Post
 
+
+# Registrar nuevo usuario
 class FormularioRegistroUsuario(UserCreationForm):
     first_name = forms.CharField(max_length=20, label='Nombre', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
@@ -23,6 +25,7 @@ class FormularioRegistroUsuario(UserCreationForm):
                   'last_name', 'password1', 'password2')
 
 
+# Editar usuario
 class FormularioEdicion(UserChangeForm):
     password = None
     email = forms.CharField(widget=forms.EmailInput(
@@ -39,6 +42,7 @@ class FormularioEdicion(UserChangeForm):
         fields = ('email', 'username', 'first_name', 'last_name')
 
 
+# Cambio de contraseña
 class FormularioCambioPassword(PasswordChangeForm):
     old_password = forms.CharField(label=("Password Actual"),
                                    widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -52,16 +56,7 @@ class FormularioCambioPassword(PasswordChangeForm):
         fields = ('old_password', 'new_password1', 'new_password2')
 
 
-# class FormularioNuevoPosteo(forms.ModelForm):
-#     class Meta:
-#         model = Post
-#         fields = ('title', 'description', 'imagen')
-
-#         widgets = {
-#             'title' : forms.TextInput(attrs={'class': 'form-control'}),
-#             'description' : forms.TextInput(attrs={'class': 'form-control'}),
-#         }
-
+# Nuevo posteo
 class FormularioNuevoPosteo(forms.ModelForm):
     title = forms.CharField(label=("Titulo"),
                                    widget=forms.TextInput(attrs={'class': 'form-control'}))
