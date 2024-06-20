@@ -52,12 +52,22 @@ class FormularioCambioPassword(PasswordChangeForm):
         fields = ('old_password', 'new_password1', 'new_password2')
 
 
+# class FormularioNuevoPosteo(forms.ModelForm):
+#     class Meta:
+#         model = Post
+#         fields = ('title', 'description', 'imagen')
+
+#         widgets = {
+#             'title' : forms.TextInput(attrs={'class': 'form-control'}),
+#             'description' : forms.TextInput(attrs={'class': 'form-control'}),
+#         }
+
 class FormularioNuevoPosteo(forms.ModelForm):
+    title = forms.CharField(label=("Titulo"),
+                                   widget=forms.TextInput(attrs={'class': 'form-control'}))
+    description = forms.CharField(label=("Descripcion"),
+                                    widget=forms.TextInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Post
         fields = ('title', 'description', 'imagen')
-
-        widgets = {
-            'title' : forms.TextInput(attrs={'class': 'form-control'}),
-            'description' : forms.TextInput(attrs={'class': 'form-control'}),
-        }

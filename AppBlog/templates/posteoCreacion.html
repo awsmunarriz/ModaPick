@@ -1,12 +1,11 @@
-{% extends 'home.html' %}
-
-{% block content %}
+{% extends 'home.html' %} {% load static %} {% block content %}
 
 <br>
 <br>
 
-<div class="container">
-    <h1 class="text-center">Agrega un nuevo posteo</h1>
+<div class="container mt-5">
+    <h1 class="text-center">Agregar nuevo posteo</h1>
+    <br />
 <div class="form-group">
 <form style=" width: 50vw; margin-left : 15vw;" method="post" enctype="multipart/form-data">{% csrf_token %}
     {{ form.as_p }}

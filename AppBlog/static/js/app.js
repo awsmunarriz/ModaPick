@@ -75,7 +75,7 @@ class PosteoController {
         </div>
         <div class="modal-body">
           <img src="${posteo.imagen}" class="img-fluid rounded-start" alt="${posteo.title}">
-          <h3>${posteo.description}</h3>
+          <h3 style="color:SlateGrey;">${posteo.description}</h3>
         </div>
         <div class="modal-footer">
           <button type="button" id="like-${posteo.id}" class="css-button css-button-3d--green">

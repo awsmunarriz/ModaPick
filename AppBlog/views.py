@@ -63,9 +63,6 @@ class CambioPassword(PasswordChangeView):
 def password_exitoso(request):
     return render(request, 'passwordExitoso.html', {})
 
-def chequeo(request):
-    return render(request, 'check.html', {})
-
 
 # NUEVO POSTEO
 class PosteoCreacion(LoginRequiredMixin, CreateView):
@@ -137,10 +134,9 @@ def dar_dislike(request):
     return JsonResponse(response_data)
 
 
-# Obtener estadísticas de likes y dislikes (staff)
-@staff_member_required
+# Obtener estadísticas de likes y dislikes (usuario autenticado)
+@login_required
 def posteo_estadisticas(request):
-    # Obtener los posteos con sus estadísticas de likes y dislikes y calcular la puntuación
     posteos = Post.objects.annotate(
         likes=Count('favoritos', filter=Q(favoritos__interaction=Favoritos.LIKE)),
         dislikes=Count('favoritos', filter=Q(favoritos__interaction=Favoritos.DISLIKE)),
@@ -148,7 +144,7 @@ def posteo_estadisticas(request):
             Count('favoritos', filter=Q(favoritos__interaction=Favoritos.LIKE)) - Count('favoritos', filter=Q(favoritos__interaction=Favoritos.DISLIKE)),
             output_field=IntegerField()
         )
-    )
+    ).order_by('-puntuacion')
     context = {
         'posteos': posteos
     }
