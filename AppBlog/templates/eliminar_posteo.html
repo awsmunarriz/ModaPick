@@ -18,7 +18,7 @@
       <tr>
         <td>{{ posteo.title }}</td>
         <td>
-          <form method="post" action="{% url 'eliminar_posteo' posteo.id %}">
+          <form method="post" action="{% url 'eliminar_posteo' posteo.id %}" onsubmit="return confirmDelete();">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Eliminar</button>
           </form>
@@ -32,5 +32,11 @@
 <br />
 <br />
 <br />
+
+<script>
+  function confirmDelete() {
+    return confirm("ATENCION!! Se eliminara este posteo");
+  }
+</script>
 
 {% endblock %}
