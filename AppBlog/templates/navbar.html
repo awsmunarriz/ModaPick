@@ -23,11 +23,12 @@
             >MiActividad</a
           >
         </li>
+        {% endif %}
+
+        {% if request.user.is_staff %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'posteo_estadisticas' %}">Ranking</a>
         </li>
-
-        {% if request.user.is_staff %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'nuevo_posteo' %}">NuevoPosteo</a>
         </li>
@@ -41,7 +42,6 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'acerca_de_mi' %}">Creditos</a>
         </li>
-        {% endif %}
 
         <div class="container"></div>
         <div class="container"></div>

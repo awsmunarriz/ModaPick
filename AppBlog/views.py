@@ -95,9 +95,8 @@ class PosteoCreacion(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
 
 # OBTENER POSTEOS
-@login_required
 def obtener_posteos(request):
-    posteos = Post.objects.all()
+    posteos = Post.objects.all().order_by('-created_at') # en orden empezando desde el mas reciente
     user_authenticated = request.user.is_authenticated
     data = {
         'authenticated': user_authenticated,
@@ -157,8 +156,8 @@ def dar_dislike(request):
     return JsonResponse(response_data)
 
 
-# Obtener estadísticas de likes y dislikes (usuario autenticado)
-@login_required
+# Obtener ranking de likes y dislikes (personal staff)
+@staff_member_required
 def posteo_estadisticas(request):
     posteos = Post.objects.annotate(
         likes=Count('favoritos', filter=Q(favoritos__interaction=Favoritos.LIKE)),
@@ -203,7 +202,6 @@ def lista_posteos_delete(request):
     return render(request, 'eliminar_posteo.html', context)
 
 
-# Acerca de Mi (usuario autenticado)
-@login_required
+# Creditos
 def acerca_de_mi(request):
     return render(request, 'acercaDeMi.html')
