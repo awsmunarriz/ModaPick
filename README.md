@@ -88,4 +88,13 @@ python manage.py runserver
 - Contraseña: Welcome/2024
 
 
+## Pruebas realizadas:
+
+Ver archivo "Casos-de-prueba.xlsx" en este mismo repositorio.
+
+## Video demostracion:
+
+-> ((Agregar link a Youtube))
+
+
 Disfruta el sitio :)
