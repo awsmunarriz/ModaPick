@@ -17,13 +17,15 @@ Conocer el comportamiento de eleccion de los usuarios para la creacion de futuro
 
 - Los usuarios acceden con usuario y contraseña.
 
+- Los posteos se ven en orden cronologico empezando desde el mas reciente.
+
 - Los usuarios registrados pueden ver todos los posteos y en cada posteo puede elegir "like" o "dislike".
 
 - Los usuarios registrados pueden elegir una sola opcion por posteo. Y puede cambiar de opinion luego de haber elegido una opcion.
 
 - Los usuarios registrados pueden ver el detalle de su actividad en cada posteo.
 
-- Los usuarios registrados y el personal "staff" pueden ver el "ranking" de cada posteo con sus estadisticas.
+- Solamente el personal "staff" puede ver el "ranking" de cada posteo con sus estadisticas.
 
 - Solamente el personal "staff" puede crear y eliminar posteos.
 
