@@ -21,4 +21,5 @@ urlpatterns = [
     path('misInteracciones/', user_interactions, name='user_interactions'),
     path('eliminarPosteo/<int:posteo_id>/', eliminar_posteo, name='eliminar_posteo'),
     path('listaPosteos/', lista_posteos_delete, name='lista_posteos'),
+    path('acercaDeMi/', views.acerca_de_mi, name='acerca_de_mi'),
 ]

@@ -201,3 +201,9 @@ def lista_posteos_delete(request):
         'posteos': posteos
     }
     return render(request, 'eliminar_posteo.html', context)
+
+
+# Acerca de Mi (usuario autenticado)
+@login_required
+def acerca_de_mi(request):
+    return render(request, 'acercaDeMi.html')
