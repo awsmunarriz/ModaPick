@@ -1,33 +1,69 @@
 # ModaPick
 
-Sitio web de blog multiusuario creado con ```Django 5.0.6```
+Blog multiusuario para indumentaria de moda, creado con ```Django 5.0.6```
 
 
-## Credenciales de prueba
-Utilice las siguientes credenciales para probar el sitio web sin crear una cuenta
-- Usuario: pepe
-- Contraseña: Welcome/2024
+## Descripcion:
+
+En el blog se van publicando diferentes estilos de indumentaria y los usuarios pueden votar si les gusta o no el diseño.
 
 
-## Instrucciones para instalar
+## Objetivo:
 
-- Crear y abrir una carpeta en donde clonar el proyecto
-Ej: ModaPick
+Conocer el comportamiento de eleccion de los usuarios para la creacion de futuros diseños de indumentaria de la compañia.
 
-- Crear un entorno virtual y activarlo
-```
-python3 -m venv venv
-```
-```
-source venv/bin/activate (Linux o MacOS)
-```
-```
-.\venv\Scripts\activate (Windows)
-```
+
+## Funcionalidades:
+
+- Los usuarios acceden con usuario y contraseña.
+
+- Los usuarios registrados pueden ver todos los posteos y en cada posteo puede elegir "like" o "dislike".
+
+- Los usuarios registrados pueden elegir una sola opcion por posteo. Y puede cambiar de opinion luego de haber elegido una opcion.
+
+- Los usuarios registrados pueden ver el detalle de su actividad en cada posteo.
+
+- Los usuarios registrados y el personal "staff" pueden ver el "ranking" de cada posteo con sus estadisticas.
+
+- Solamente el personal "staff" puede crear y eliminar posteos.
+
+- Los usuarios anonimos pueden ver todos los posteos pero no pueden elegir "like" o "dislike".
+
+
+## Instrucciones para instalar el proyecto en Windows:
+
+- Abrir una carpeta donde quiero clonar el proyecto:
+Ej: DjangoProjects
+
+- Abrir terminal de Git Bash:
+Boton derecho adentro de la carpeta "DjangoProjects" -> Git Bash Here
 
 - Clonar el proyecto:
 ```
 git clone https://github.com/awsmunarriz/ModaPick.git
+```
+
+- Desde la misma terminal de Git Bash acceder a la carpeta ModaPick:
+```
+cd ModaPick
+```
+
+- Desde la misma terminal de Git Bash abrir VSCode:
+```
+code .
+```
+
+- Abrir una terminal en VSCode:
+Terminal -> Nuevo terminal
+
+- Crear un entorno virtual:
+```
+python -m venv venv
+```
+
+- Activar el entorno virtual:
+```
+venv\Scripts\activate
 ```
 
 - Instalar los requerimientos:
@@ -36,11 +72,20 @@ pip install -r requirements.txt
 ```
 
 
-## Ejecutar:
-
+## Ejecutar el proyecto:
 ```
 python manage.py runserver
 ```
+
+
+## Credenciales de superuser:
+- Usuario: mariano
+- Contraseña: 123456
+
+
+## Credenciales de usuario basico:
+- Usuario: pepe
+- Contraseña: Welcome/2024
 
 
 Disfruta el sitio :)
